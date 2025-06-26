@@ -34,11 +34,10 @@ function getUserByMobile($mobile) {
     $stmt->execute([$mobile]);
     return $stmt->fetch();
 }
-
-function createUser($name, $mobile) {
+function createUser($name, $mobile , $school, $stream) {
     global $pdo;
-    $stmt = $pdo->prepare("INSERT INTO users (name, mobile) VALUES (?, ?)");
-    return $stmt->execute([$name, $mobile]);
+    $stmt = $pdo->prepare("INSERT INTO users (name, mobile, school, stream) VALUES (?, ?, ?, ?)");
+    return $stmt->execute([$name, $mobile, $school, $stream]);
 }
 
 function hasUserAttemptedQuiz($userId) {

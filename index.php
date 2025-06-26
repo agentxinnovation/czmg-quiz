@@ -17,8 +17,9 @@ if (isset($_COOKIE['quiz_user_mobile'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     $name = sanitize($_POST['name']);
     $mobile = sanitize($_POST['mobile']);
-
-    if (empty($name) || empty($mobile)) {
+    $school = sanitize($_POST['school']);
+    $stream = sanitize($_POST['stream']);
+    if (empty($name) || empty($mobile) || empty($school) || empty($stream)) {
         $error = "Please fill in all fields.";
     } elseif (!isValidMobile($mobile)) {
         $error = "Please enter a valid 10-digit mobile number.";
@@ -37,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
             }
         } else {
             // Create new user
-            if (createUser($name, $mobile)) {
+            if (createUser($name, $mobile, $school, $stream)) {
                 $newUser = getUserByMobile($mobile);
                 setcookie('quiz_user_mobile', $mobile, time() + (86400 * 30), '/'); // 30 days
                 $_SESSION['user_id'] = $newUser['id'];
@@ -71,15 +72,8 @@ if ($userData && !$userAttempted) {
         }
 
         @keyframes pulse {
-
-            0%,
-            100% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.5;
-            }
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
     </style>
 </head>
@@ -125,8 +119,20 @@ if ($userData && !$userAttempted) {
                                         class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         placeholder="Enter 10-digit mobile number">
                                 </div>
+                                <div>
+                                    <label class="block text-white text-sm font-medium mb-2">School</label>
+                                    <input type="text" name="school" required
+                                        class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        placeholder="Enter your school name">
+                                </div>
+                                <div>
+                                    <label class="block text-white text-sm font-medium mb-2">Stream</label>
+                                    <input type="text" name="stream" required
+                                        class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        placeholder="Enter your stream (e.g., Science, Commerce, Arts)">
+                                </div>
                             </div>
-                            <button type="submit" name="register"
+                            <button type="submit" name="register" 
                                 class="w-full mt-6 bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white font-bold py-4 px-8 rounded-full text-xl transition-all duration-300 transform hover:scale-105 shadow-lg">
                                 Register & Start Quiz 🚀
                             </button>
@@ -135,7 +141,7 @@ if ($userData && !$userAttempted) {
                         <div class="bg-white/5 rounded-2xl p-6">
                             <h3 class="text-2xl font-semibold text-white mb-4">Game Rules</h3>
                             <ul class="text-gray-300 space-y-2">
-                                <li>🕐 30 seconds per question</li>
+                                <li>🕐 45 seconds per question</li>
                                 <li>📝 30 multiple choice questions</li>
                                 <li>🎯 Choose the best answer</li>
                                 <li>🏆 See your final score at the end</li>
@@ -157,6 +163,8 @@ if ($userData && !$userAttempted) {
                     <div class="bg-white/5 rounded-2xl p-6 mb-8">
                         <h3 class="text-xl font-semibold text-white mb-3">Welcome, <?php echo htmlspecialchars($userData['name']); ?>!</h3>
                         <p class="text-gray-300">Mobile: <?php echo htmlspecialchars($userData['mobile']); ?></p>
+                        <p class="text-gray-300">School: <?php echo htmlspecialchars($userData['school']); ?></p>
+                        <p class="text-gray-300">Stream: <?php echo htmlspecialchars($userData['stream']); ?></p>
                     </div>
 
                     <?php if ($hasProgress): ?>
@@ -168,14 +176,14 @@ if ($userData && !$userAttempted) {
                         <button id="resumeBtn" class="bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700 text-white font-bold py-4 px-8 rounded-full text-xl transition-all duration-300 transform hover:scale-105 shadow-lg mr-4">
                             Resume Quiz 🚀
                         </button>
-                        <button id="restartBtn" class="bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white font-bold py-4 px-8 rounded-full text-xl transition-all duration-300 transform hover:scale-105 shadow-lg">
+                        <button id="restartBtn" class="bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to Automated Response: -pink-700 text-white font-bold py-4 px-8 rounded-full text-xl transition-all duration-300 transform hover:scale-105 shadow-lg">
                             Start Fresh 🔄
                         </button>
                     <?php else: ?>
                         <div class="bg-white/5 rounded-2xl p-6 mb-8">
                             <h3 class="text-2xl font-semibold text-white mb-4">Game Rules</h3>
                             <ul class="text-gray-300 space-y-2">
-                                <li>🕐 30 seconds per question</li>
+                                <li>🕐 45 seconds per question</li>
                                 <li>📝 30 multiple choice questions</li>
                                 <li>🎯 Choose the best answer</li>
                                 <li>🏆 See your final score at the end</li>
@@ -201,7 +209,7 @@ if ($userData && !$userAttempted) {
                                 <span class="text-lg">Score: <span id="currentScore" class="font-bold text-green-400">0</span></span>
                             </div>
                             <div id="timer" class="bg-red-500 text-white px-4 py-2 rounded-full font-bold text-lg min-w-[80px] text-center">
-                                30
+                                45
                             </div>
                         </div>
                     </div>
@@ -249,13 +257,12 @@ if ($userData && !$userAttempted) {
         Made by Harsh Raithatha
     </div>
     <script>
-        // Quiz Game JavaScript - Complete Implementation
         class QuizGame {
             constructor() {
                 this.questions = [];
                 this.currentQuestionIndex = 0;
                 this.score = 0;
-                this.timeLeft = 30;
+                this.timeLeft = 45;
                 this.timer = null;
                 this.userAnswers = [];
                 this.quizStartTime = null;
@@ -290,7 +297,7 @@ if ($userData && !$userAttempted) {
                 this.resultIcon = document.getElementById('resultIcon');
                 this.finalScore = document.getElementById('finalScore');
                 this.percentage = document.getElementById('percentage');
-                this.resultMessage = document.getElementById('resultMessage');
+                this.resultMessage = document.getElementById ('resultMessage');
             }
 
             bindEvents() {
@@ -318,7 +325,6 @@ if ($userData && !$userAttempted) {
                 // Handle visibility change (tab switch)
                 document.addEventListener('visibilitychange', () => {
                     if (document.hidden && this.timer) {
-                        // User switched tab during quiz - handle as needed
                         console.log('User switched tab during quiz');
                     }
                 });
@@ -402,12 +408,10 @@ if ($userData && !$userAttempted) {
             }
 
             showScreen(screen) {
-                // Hide all screens
                 if (this.startScreen) this.startScreen.classList.add('hidden');
                 if (this.quizScreen) this.quizScreen.classList.add('hidden');
                 if (this.resultScreen) this.resultScreen.classList.add('hidden');
 
-                // Show target screen
                 switch (screen) {
                     case 'start':
                         if (this.startScreen) this.startScreen.classList.remove('hidden');
@@ -460,54 +464,37 @@ if ($userData && !$userAttempted) {
 
                 this.optionsContainer.innerHTML = '';
 
-                const options = [{
-                        letter: 'A',
-                        text: question.option_a
-                    },
-                    {
-                        letter: 'B',
-                        text: question.option_b
-                    },
-                    {
-                        letter: 'C',
-                        text: question.option_c
-                    },
-                    {
-                        letter: 'D',
-                        text: question.option_d
-                    }
+                const options = [
+                    { letter: 'A', text: question.option_a },
+                    { letter: 'B', text: question.option_b },
+                    { letter: 'C', text: question.option_c },
+                    { letter: 'D', text: question.option_d }
                 ];
 
                 options.forEach((option, index) => {
                     const optionElement = document.createElement('button');
                     optionElement.className = 'w-full text-left p-4 bg-white/5 hover:bg-white/10 border border-white/20 rounded-lg text-white transition-all duration-200 hover:scale-105 hover:border-white/40';
                     optionElement.innerHTML = `
-                <span class="inline-block w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full text-center leading-8 font-bold mr-4">
-                    ${option.letter}
-                </span>
-                <span class="text-lg">${option.text}</span>
-            `;
-
+                        <span class="inline-block w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full text-center leading-8 font-bold mr-4">
+                            ${option.letter}
+                        </span>
+                        <span class="text-lg">${option.text}</span>
+                    `;
                     optionElement.addEventListener('click', () => this.selectOption(option.letter, optionElement));
                     this.optionsContainer.appendChild(optionElement);
                 });
             }
 
             async selectOption(selectedOption, optionElement) {
-                // Disable all options
                 const allOptions = this.optionsContainer.querySelectorAll('button');
                 allOptions.forEach(btn => {
                     btn.disabled = true;
                     btn.classList.remove('hover:bg-white/10', 'hover:scale-105', 'hover:border-white/40');
                 });
 
-                // Highlight selected option
                 optionElement.classList.add('bg-blue-500/30', 'border-blue-400');
-
-                // Stop timer
                 this.stopTimer();
 
-                // Check if answer is correct
                 const currentQuestion = this.questions[this.currentQuestionIndex];
                 const isCorrect = selectedOption === currentQuestion.correct_option;
 
@@ -517,8 +504,6 @@ if ($userData && !$userAttempted) {
                     this.showFeedback('Correct! 🎉', 'success');
                 } else {
                     optionElement.classList.add('bg-red-500/30', 'border-red-400');
-
-                    // Highlight correct answer
                     const correctOption = currentQuestion.correct_option;
                     const correctIndex = ['A', 'B', 'C', 'D'].indexOf(correctOption);
                     if (correctIndex !== -1) {
@@ -527,39 +512,38 @@ if ($userData && !$userAttempted) {
                     this.showFeedback('Incorrect! 😞', 'error');
                 }
 
-                // Store user answer
                 this.userAnswers[this.currentQuestionIndex] = selectedOption;
 
-                // Update score display
                 if (this.currentScoreEl) {
                     this.currentScoreEl.textContent = this.score;
                 }
 
-                // Save progress
                 await this.saveProgress();
 
-                // Move to next question after delay
                 setTimeout(() => {
-                    this.nextQuestion();
+                    this.currentQuestionIndex++;
+                    if (this.currentQuestionIndex < this.questions.length && this.currentQuestionIndex < 30) {
+                        this.updateQuizDisplay();
+                        this.displayCurrentQuestion();
+                    } else {
+                        this.completeQuiz();
+                    }
                 }, 1500);
             }
 
             showFeedback(message, type) {
-                // Create feedback element
                 const feedback = document.createElement('div');
                 feedback.className = `fixed top-4 right-4 px-6 py-3 rounded-lg font-semibold text-white z-50 transform transition-all duration-300 ${
-            type === 'success' ? 'bg-green-500' : 'bg-red-500'
-        }`;
+                    type === 'success' ? 'bg-green-500' : 'bg-red-500'
+                }`;
                 feedback.textContent = message;
 
                 document.body.appendChild(feedback);
 
-                // Animate in
                 setTimeout(() => {
                     feedback.classList.add('translate-x-0');
                 }, 100);
 
-                // Remove after delay
                 setTimeout(() => {
                     feedback.classList.add('translate-x-full');
                     setTimeout(() => {
@@ -570,19 +554,8 @@ if ($userData && !$userAttempted) {
                 }, 1000);
             }
 
-            nextQuestion() {
-                this.currentQuestionIndex++;
-                this.updateQuizDisplay();
-
-                if (this.currentQuestionIndex < this.questions.length && this.currentQuestionIndex < 30) {
-                    this.displayCurrentQuestion();
-                } else {
-                    this.completeQuiz();
-                }
-            }
-
             startTimer() {
-                this.timeLeft = 30;
+                this.timeLeft = 45;
                 this.updateTimerDisplay();
 
                 this.timer = setInterval(() => {
@@ -599,7 +572,6 @@ if ($userData && !$userAttempted) {
                 if (this.timerEl) {
                     this.timerEl.textContent = this.timeLeft;
 
-                    // Add warning animation for last 10 seconds
                     if (this.timeLeft <= 10) {
                         this.timerEl.classList.add('timer-warning', 'bg-red-600');
                     } else {
@@ -623,14 +595,8 @@ if ($userData && !$userAttempted) {
 
             async timeUp() {
                 this.stopTimer();
-
-                // Mark question as unanswered
                 this.userAnswers[this.currentQuestionIndex] = null;
 
-                // Show time up message
-                // this.showFeedback('Time Up! ⏰', 'error');
-
-                // Highlight correct answer
                 const currentQuestion = this.questions[this.currentQuestionIndex];
                 const correctOption = currentQuestion.correct_option;
                 const correctIndex = ['A', 'B', 'C', 'D'].indexOf(correctOption);
@@ -640,18 +606,21 @@ if ($userData && !$userAttempted) {
                     allOptions[correctIndex].classList.add('bg-green-500/30', 'border-green-400');
                 }
 
-                // Disable all options
                 allOptions.forEach(btn => {
                     btn.disabled = true;
                     btn.classList.remove('hover:bg-white/10', 'hover:scale-105', 'hover:border-white/40');
                 });
 
-                // Save progress
                 await this.saveProgress();
 
-                // Move to next question after delay
                 setTimeout(() => {
-                    this.nextQuestion();
+                    this.currentQuestionIndex++;
+                    if (this.currentQuestionIndex < this.questions.length && this.currentQuestionIndex < 30) {
+                        this.updateQuizDisplay();
+                        this.displayCurrentQuestion();
+                    } else {
+                        this.completeQuiz();
+                    }
                 }, 2000);
             }
 
@@ -687,7 +656,6 @@ if ($userData && !$userAttempted) {
                 const totalQuestions = Math.min(this.questions.length, 30);
                 const percentage = Math.round((this.score / totalQuestions) * 100);
 
-                // Save final result
                 try {
                     const resultData = {
                         score: this.score,
@@ -711,7 +679,6 @@ if ($userData && !$userAttempted) {
                     console.error('Error saving result:', error);
                 }
 
-                // Display results
                 this.displayResults(this.score, totalQuestions, percentage);
             }
 
@@ -726,7 +693,6 @@ if ($userData && !$userAttempted) {
                     this.percentage.textContent = `${percentage}%`;
                 }
 
-                // Set result message and icon based on performance
                 let message = '';
                 let icon = '';
 
@@ -758,14 +724,12 @@ if ($userData && !$userAttempted) {
                     this.resultIcon.textContent = icon;
                 }
 
-                // Add confetti effect for high scores
                 if (percentage >= 80) {
                     this.showConfetti();
                 }
             }
 
             showConfetti() {
-                // Simple confetti effect
                 for (let i = 0; i < 50; i++) {
                     setTimeout(() => {
                         this.createConfettiPiece();
@@ -787,7 +751,6 @@ if ($userData && !$userAttempted) {
 
                 document.body.appendChild(confetti);
 
-                // Animate confetti falling
                 let position = -10;
                 const fall = setInterval(() => {
                     position += 5;
@@ -817,15 +780,12 @@ if ($userData && !$userAttempted) {
             }
         }
 
-        // Initialize the quiz game when DOM is loaded
         document.addEventListener('DOMContentLoaded', () => {
-            // Only initialize if we're not on registration screen
             if (document.getElementById('startScreen') || document.getElementById('quizScreen')) {
                 new QuizGame();
             }
         });
 
-        // Additional utility functions
         function formatTime(seconds) {
             const mins = Math.floor(seconds / 60);
             const secs = seconds % 60;
