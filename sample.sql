@@ -45,9 +45,9 @@ CREATE TABLE `questions` (
 --
 
 INSERT INTO `questions` (`id`, `question`, `option_a`, `option_b`, `option_c`, `option_d`, `correct_option`, `difficulty`, `category`, `created_at`) VALUES
-(1, 'Which planet is closest to the Sun?', 'Earth', 'Venus', 'Mercury', 'Mars', 'C', 'Easy', 'General Knowledge', '2025-06-25 17:25:27'),
+(1, 'What is the full form of Smt. C.Z.M.G BCA and MSC.IT college?', 'Smt. Chandrikaben Zaverchand Meghji Goswami BCA and MSC.IT College', 'Smt. Chandramaniben Zaveri Meghji Gosrani BCA and MSC.IT College', 'Smt. Chandramaniben Zaverchand Meghji Gosrani BCA and MSC.IT College', 'Smt. Chandramaniben Zaverchand Meghji Goswami BCA and MSC.IT College', 'C', 'Easy', 'General Knowledge', '2025-06-25 17:25:27'),
 (2, 'Which country is known as the Land of the Rising Sun?', 'South Korea', 'China', 'Japan', 'Thailand', 'C', 'Easy', 'General Knowledge', '2025-06-25 17:25:27'),
-(3, 'How many continents are there on Earth?', '6', '7', '8', '5', 'B', 'Easy', 'General Knowledge', '2025-06-25 17:25:27'),
+(3, 'If a cloak takes 5 seconds to strike 5, how long will it take to strike 10?', '9', '7', '8', '10', 'A', 'Easy', 'General Knowledge', '2025-06-25 17:25:27'),
 (4, 'Which is the national flower of India?', 'Sunflower', 'Lotus', 'Rose', 'Marigold', 'B', 'Easy', 'General Knowledge', '2025-06-25 17:25:27'),
 (5, 'What is the currency of the USA?', 'Euro', 'Dollar', 'Pound', 'Yen', 'B', 'Easy', 'General Knowledge', '2025-06-25 17:25:27'),
 (6, 'Which one is an example of an output device?', 'Keyboard', 'Scanner', 'Monitor', 'Mouse', 'C', 'Easy', 'Computer Science', '2025-06-25 17:25:27'),
@@ -57,12 +57,12 @@ INSERT INTO `questions` (`id`, `question`, `option_a`, `option_b`, `option_c`, `
 (10, 'What does RAM stand for?', 'Read Access Memory', 'Read Automatic Memory', 'Random Automatic Memory', 'Random Access Memory', 'D', 'Easy', 'Computer Science', '2025-06-25 17:25:27'),
 (11, 'Which gas is most abundant in the Earth\'s atmosphere?', 'Oxygen', 'Carbon Dioxide', 'Nitrogen', 'Hydrogen', 'C', 'Medium', 'General Knowledge', '2025-06-25 17:25:27'),
 (12, 'Who is known as the Iron Man of India?', 'Subhash Chandra Bose', 'Bhagat Singh', 'Sardar Vallabhbhai Patel', 'Jawaharlal Nehru', 'C', 'Medium', 'General Knowledge', '2025-06-25 17:25:27'),
-(13, 'In which year did India gain independence?', '1945', '1947', '1950', '1946', 'B', 'Medium', 'General Knowledge', '2025-06-25 17:25:27'),
+(13, 'Which is the only country that is also a continent and has three internal time zones?', 'Japan', 'Australia', 'Europe', 'North America', 'B', 'Medium', 'General Knowledge', '2025-06-25 17:25:27'),
 (14, 'Who wrote \'Discovery of India\'?', 'Mahatma Gandhi', 'Rabindranath Tagore', 'Jawaharlal Nehru', 'APJ Abdul Kalam', 'C', 'Medium', 'General Knowledge', '2025-06-25 17:25:27'),
 (15, 'Which river is known as the \'Sorrow of Bengal\'?', 'Ganga', 'Yamuna', 'Damodar', 'Brahmaputra', 'C', 'Medium', 'General Knowledge', '2025-06-25 17:25:27'),
 (16, 'Which protocol is used to receive emails?', 'SMTP', 'IMAP', 'FTP', 'HTTP', 'B', 'Medium', 'Computer Science', '2025-06-25 17:25:27'),
 (17, 'Which file extension is used for Java source code?', '.exe', '.java', '.class', '.html', 'B', 'Medium', 'Computer Science', '2025-06-25 17:25:27'),
-(18, 'Which among these is NOT a database management system?', 'MySQL', 'Oracle', 'Windows', 'MongoDB', 'C', 'Medium', 'Computer Science', '2025-06-25 17:25:27'),
+(18, 'What is the full form of HTTP?', 'Hyper Text Terminal Protocol', 'Hyper Text Transmission Protocol', 'Hyper Text Transfer Protocol', 'High Text Transfer Protocol', 'C', 'Medium', 'Computer Science', '2025-06-25 17:25:27'),
 (19, 'Which shortcut is used to redo an action?', 'Ctrl + R', 'Ctrl + Y', 'Ctrl + U', 'Ctrl + E', 'B', 'Medium', 'Computer Science', '2025-06-25 17:25:27'),
 (20, 'Which one is an open-source operating system?', 'Windows', 'macOS', 'Linux', 'DOS', 'C', 'Medium', 'Computer Science', '2025-06-25 17:25:27'),
 (21, 'Which is the deepest ocean in the world?', 'Atlantic', 'Arctic', 'Indian', 'Pacific', 'D', 'Hard', 'General Knowledge', '2025-06-25 17:25:27'),
@@ -72,9 +72,9 @@ INSERT INTO `questions` (`id`, `question`, `option_a`, `option_b`, `option_c`, `
 (25, 'Which Indian state has the longest coastline?', 'Gujarat', 'Andhra Pradesh', 'Maharashtra', 'Tamil Nadu', 'A', 'Hard', 'General Knowledge', '2025-06-25 17:25:27'),
 (26, 'Which of these is NOT a type of computer network?', 'LAN', 'MAN', 'WAN', 'CAN', 'D', 'Hard', 'Computer Science', '2025-06-25 17:25:27'),
 (27, 'Which one is used for dynamic web page scripting?', 'HTML', 'CSS', 'JavaScript', 'XML', 'C', 'Hard', 'Computer Science', '2025-06-25 17:25:27'),
-(28, 'Which SQL command is used to add new data to a table?', 'INSERT', 'DELETE', 'UPDATE', 'SELECT', 'A', 'Hard', 'Computer Science', '2025-06-25 17:25:27'),
+(28, 'What is the main difference between RAM and ROM?', 'ROM is volatile,RAM is not', 'RAM stores the BIOS', 'RAM is volatile, ROM is not', 'Both are permanent storage', 'C', 'Hard', 'Computer Science', '2025-06-25 17:25:27'),
 (29, 'Which method is used to arrange numbers in order?', 'Searching', 'Sorting', 'Filtering', 'Merging', 'B', 'Hard', 'Computer Science', '2025-06-25 17:25:27'),
-(30, 'Which logic gate gives a high output if both inputs are high?', 'OR', 'AND', 'NOR', 'NOT', 'B', 'Hard', 'Computer Science', '2025-06-25 17:25:27');
+(30, 'Which type of malware appears as a useful software but harms your system?', 'Virus', 'Worm', 'Trojan Horse', 'Spyware', 'C', 'Hard', 'Computer Science', '2025-06-25 17:25:27');
 
 -- --------------------------------------------------------
 
