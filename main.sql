@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 25, 2025 at 08:32 PM
+-- Generation Time: Jun 26, 2025 at 03:59 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -89,8 +89,18 @@ CREATE TABLE `quiz_progress` (
   `score` int(11) DEFAULT 0,
   `answers` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`answers`)),
   `started_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `question_order` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `quiz_progress`
+--
+
+INSERT INTO `quiz_progress` (`id`, `user_id`, `current_question_index`, `score`, `answers`, `started_at`, `updated_at`, `question_order`) VALUES
+(265, 8, 21, 1, '[\"B\",\"A\",\"B\",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]', '2025-06-26 09:37:25', '2025-06-26 09:37:25', NULL),
+(282, 10, 5, 1, '[\"B\",null,null,null,\"B\",null]', '2025-06-26 13:23:35', '2025-06-26 13:23:35', NULL),
+(284, 12, 16, 6, '[\"C\",\"D\",\"A\",\"C\",\"C\",\"D\",\"C\",\"C\",\"C\",\"D\",\"D\",\"D\",\"C\",\"C\",\"C\",\"C\",null,null,null,null,null,null,null,null,null,null,null,null,null,null]', '2025-06-26 13:38:29', '2025-06-26 13:39:12', NULL);
 
 -- --------------------------------------------------------
 
@@ -108,6 +118,18 @@ CREATE TABLE `quiz_results` (
   `completed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `quiz_results`
+--
+
+INSERT INTO `quiz_results` (`id`, `user_id`, `score`, `total_questions`, `percentage`, `time_taken`, `completed_at`) VALUES
+(5, 5, 2, 30, 6.67, 75, '2025-06-25 18:37:36'),
+(6, 4, 3, 30, 10.00, 62, '2025-06-26 05:47:51'),
+(7, 6, 8, 30, 26.67, 66, '2025-06-26 08:36:46'),
+(8, 7, 24, 30, 80.00, 225, '2025-06-26 09:12:02'),
+(9, 11, 10, 30, 33.33, 129, '2025-06-26 13:33:09'),
+(10, 15, 17, 30, 56.67, 536, '2025-06-26 13:58:15');
+
 -- --------------------------------------------------------
 
 --
@@ -118,15 +140,28 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `mobile` varchar(15) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `school` varchar(100) NOT NULL,
+  `stream` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `mobile`, `created_at`) VALUES
-(4, 'Status page', '9365478210', '2025-06-25 18:27:56');
+INSERT INTO `users` (`id`, `name`, `mobile`, `created_at`, `school`, `stream`) VALUES
+(4, 'Status page', '9365478210', '2025-06-25 18:27:56', '', ''),
+(5, 'commando', '9876543210', '2025-06-25 18:36:15', '', ''),
+(6, 's,nfs', '9632587410', '2025-06-26 08:35:38', '', ''),
+(7, 'dhairya chavda', '9854712360', '2025-06-26 09:08:10', '', ''),
+(8, 'Devx Harsh', '9658741230', '2025-06-26 09:34:59', '', ''),
+(9, 'commando', '9874120563', '2025-06-26 13:12:19', '', 'sdhgf'),
+(10, 'commando', '9996665874', '2025-06-26 13:20:39', 'kvd', 'com'),
+(11, 'Devx Harsh', '9999996610', '2025-06-26 13:31:00', 'sdf', 'sdf'),
+(12, 'harsh raithatha', '9327449233', '2025-06-26 13:37:11', 'kvd', 'comm'),
+(13, 'commando', '9996665875', '2025-06-26 13:45:07', 'asd', 'asd'),
+(14, 'Status page', '9996633221', '2025-06-26 13:46:14', 'asd', 'asd'),
+(15, 'Devx Harsh', '9365478217', '2025-06-26 13:48:55', 'jh', 'kj');
 
 --
 -- Indexes for dumped tables
@@ -173,19 +208,19 @@ ALTER TABLE `questions`
 -- AUTO_INCREMENT for table `quiz_progress`
 --
 ALTER TABLE `quiz_progress`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=286;
 
 --
 -- AUTO_INCREMENT for table `quiz_results`
 --
 ALTER TABLE `quiz_results`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Constraints for dumped tables

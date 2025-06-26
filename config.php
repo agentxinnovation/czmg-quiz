@@ -1,114 +1,94 @@
 <?php
+session_start();
+
 // Database configuration
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'quiz_game');
-define('DB_USER', 'root'); // Change as per your setup
-define('DB_PASS', ''); // Change as per your setup
+$host = 'localhost';
+$dbname = 'quiz_game';
+$username = 'root'; // Change as needed
+$password = '';     // Change as needed
 
-// Create database connection
 try {
-    $pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8mb4", DB_USER, DB_PASS);
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    die("Database connection failed: " . $e->getMessage());
+} catch(PDOException $e) {
+    die("Connection failed: " . $e->getMessage());
 }
 
-// Helper functions
-function sanitize($data) {
-    return htmlspecialchars(trim($data));
-}
-
-function redirect($url) {
-    header("Location: $url");
-    exit();
-}
-
-function isValidMobile($mobile) {
-    return preg_match('/^[6-9]\d{9}$/', $mobile);
-}
-
-function getUserByMobile($mobile) {
-    global $pdo;
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE mobile = ?");
-    $stmt->execute([$mobile]);
-    return $stmt->fetch();
-}
-function createUser($name, $mobile , $school, $stream) {
-    global $pdo;
-    $stmt = $pdo->prepare("INSERT INTO users (name, mobile, school, stream) VALUES (?, ?, ?, ?)");
-    return $stmt->execute([$name, $mobile, $school, $stream]);
-}
-
-function hasUserAttemptedQuiz($userId) {
-    global $pdo;
-    $stmt = $pdo->prepare("SELECT COUNT(*) FROM quiz_results WHERE user_id = ?");
+// Function to check if user has already completed quiz
+function hasCompletedQuiz($userId, $pdo) {
+    $stmt = $pdo->prepare("SELECT id FROM quiz_results WHERE user_id = ?");
     $stmt->execute([$userId]);
-    return $stmt->fetchColumn() > 0;
+    return $stmt->fetch() !== false;
 }
 
-function getQuestions() {
-    global $pdo;
-    $stmt = $pdo->query("SELECT * FROM questions ORDER BY RAND() LIMIT 30");
-    return $stmt->fetchAll();
+// Function to get all questions in random order
+function getQuestions($pdo) {
+    $stmt = $pdo->query("SELECT * FROM questions ORDER BY RAND()");
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function saveQuizProgress($userId, $currentIndex, $score, $answers) {
-    global $pdo;
+// Function to get questions for a specific user (maintains same order for that user's session)
+function getQuestionsForUser($userId, $pdo) {
+    // Check if user already has a question order stored
+    $stmt = $pdo->prepare("SELECT question_order FROM quiz_progress WHERE user_id = ?");
+    $stmt->execute([$userId]);
+    $progress = $stmt->fetch();
     
-    // Delete existing progress for this user
-    $stmt = $pdo->prepare("DELETE FROM quiz_progress WHERE user_id = ?");
+    if ($progress && !empty($progress['question_order'])) {
+        // Use existing question order
+        $questionIds = json_decode($progress['question_order'], true);
+        $placeholders = str_repeat('?,', count($questionIds) - 1) . '?';
+        $stmt = $pdo->prepare("SELECT * FROM questions WHERE id IN ($placeholders) ORDER BY FIELD(id, " . implode(',', array_fill(0, count($questionIds), '?')) . ")");
+        $stmt->execute(array_merge($questionIds, $questionIds));
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } else {
+        // Generate new random order
+        $questions = getQuestions($pdo);
+        $questionIds = array_column($questions, 'id');
+        
+        // Store the question order for this user
+        if ($progress) {
+            // Update existing progress with question order
+            $stmt = $pdo->prepare("UPDATE quiz_progress SET question_order = ? WHERE user_id = ?");
+            $stmt->execute([json_encode($questionIds), $userId]);
+        } else {
+            // Create new progress record with question order
+            $stmt = $pdo->prepare("INSERT INTO quiz_progress (user_id, current_question_index, score, answers, question_order) VALUES (?, 0, 0, '[]', ?)");
+            $stmt->execute([$userId, json_encode($questionIds)]);
+        }
+        
+        return $questions;
+    }
+}
+
+// Function to save quiz progress
+function saveProgress($userId, $questionIndex, $score, $answers, $pdo) {
+    $answersJson = json_encode($answers);
+    
+    // Check if progress exists
+    $stmt = $pdo->prepare("SELECT id FROM quiz_progress WHERE user_id = ?");
     $stmt->execute([$userId]);
     
-    // Insert new progress
-    $stmt = $pdo->prepare("INSERT INTO quiz_progress (user_id, current_question_index, score, answers) VALUES (?, ?, ?, ?)");
-    return $stmt->execute([$userId, $currentIndex, $score, json_encode($answers)]);
+    if ($stmt->fetch()) {
+        // Update existing progress
+        $stmt = $pdo->prepare("UPDATE quiz_progress SET current_question_index = ?, score = ?, answers = ?, updated_at = NOW() WHERE user_id = ?");
+        $stmt->execute([$questionIndex, $score, $answersJson, $userId]);
+    } else {
+        // Insert new progress
+        $stmt = $pdo->prepare("INSERT INTO quiz_progress (user_id, current_question_index, score, answers) VALUES (?, ?, ?, ?)");
+        $stmt->execute([$userId, $questionIndex, $score, $answersJson]);
+    }
 }
 
-function getQuizProgress($userId) {
-    global $pdo;
-    $stmt = $pdo->prepare("SELECT * FROM quiz_progress WHERE user_id = ?");
-    $stmt->execute([$userId]);
-    return $stmt->fetch();
-}
-
-function saveQuizResult($userId, $score, $totalQuestions, $timeTaken) {
-    global $pdo;
+// Function to save final result
+function saveFinalResult($userId, $score, $totalQuestions, $timeTaken, $pdo) {
     $percentage = ($score / $totalQuestions) * 100;
     
     $stmt = $pdo->prepare("INSERT INTO quiz_results (user_id, score, total_questions, percentage, time_taken) VALUES (?, ?, ?, ?, ?)");
-    $result = $stmt->execute([$userId, $score, $totalQuestions, $percentage, $timeTaken]);
+    $stmt->execute([$userId, $score, $totalQuestions, $percentage, $timeTaken]);
     
-    // Clear progress after completion
-    if ($result) {
-        $stmt = $pdo->prepare("DELETE FROM quiz_progress WHERE user_id = ?");
-        $stmt->execute([$userId]);
-    }
-    
-    return $result;
-}
-
-function getTopScorers($limit = 10) {
-    global $pdo;
-    $stmt = $pdo->prepare("
-        SELECT u.name, u.mobile, qr.score, qr.total_questions, qr.percentage, qr.completed_at 
-        FROM quiz_results qr 
-        JOIN users u ON qr.user_id = u.id 
-        ORDER BY qr.score DESC, qr.percentage DESC, qr.completed_at ASC 
-        LIMIT ?
-    ");
-    $stmt->execute([$limit]);
-    return $stmt->fetchAll();
-}
-
-function getAllQuizResults() {
-    global $pdo;
-    $stmt = $pdo->query("
-        SELECT u.name, u.mobile, qr.score, qr.total_questions, qr.percentage, qr.time_taken, qr.completed_at 
-        FROM quiz_results qr 
-        JOIN users u ON qr.user_id = u.id 
-        ORDER BY qr.completed_at DESC
-    ");
-    return $stmt->fetchAll();
+    // Clear progress
+    $stmt = $pdo->prepare("DELETE FROM quiz_progress WHERE user_id = ?");
+    $stmt->execute([$userId]);
 }
 ?>
