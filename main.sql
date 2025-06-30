@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 26, 2025 at 03:59 PM
+-- Generation Time: Jun 30, 2025 at 08:36 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -45,36 +45,36 @@ CREATE TABLE `questions` (
 --
 
 INSERT INTO `questions` (`id`, `question`, `option_a`, `option_b`, `option_c`, `option_d`, `correct_option`, `difficulty`, `category`, `created_at`) VALUES
-(1, 'What is the full form of Smt. C.Z.M.G BCA and MSC.IT college?', 'Smt. Chandrikaben Zaverchand Meghji Goswami BCA and MSC.IT College', 'Smt. Chandramaniben Zaveri Meghji Gosrani BCA and MSC.IT College', 'Smt. Chandramaniben Zaverchand Meghji Gosrani BCA and MSC.IT College', 'Smt. Chandramaniben Zaverchand Meghji Goswami BCA and MSC.IT College', 'C', 'Easy', 'General Knowledge', '2025-06-25 17:25:27'),
-(2, 'Which country is known as the Land of the Rising Sun?', 'South Korea', 'China', 'Japan', 'Thailand', 'C', 'Easy', 'General Knowledge', '2025-06-25 17:25:27'),
-(3, 'If a cloak takes 5 seconds to strike 5, how long will it take to strike 10?', '9', '7', '8', '10', 'A', 'Easy', 'General Knowledge', '2025-06-25 17:25:27'),
-(4, 'Which is the national flower of India?', 'Sunflower', 'Lotus', 'Rose', 'Marigold', 'B', 'Easy', 'General Knowledge', '2025-06-25 17:25:27'),
-(5, 'What is the currency of the USA?', 'Euro', 'Dollar', 'Pound', 'Yen', 'B', 'Easy', 'General Knowledge', '2025-06-25 17:25:27'),
-(6, 'Which one is an example of an output device?', 'Keyboard', 'Scanner', 'Monitor', 'Mouse', 'C', 'Easy', 'Computer Science', '2025-06-25 17:25:27'),
-(7, 'Which is used to store large amounts of data permanently?', 'RAM', 'Cache', 'Hard Disk', 'Register', 'C', 'Easy', 'Computer Science', '2025-06-25 17:25:27'),
-(8, 'Which of these is a web browser?', 'Linux', 'Google', 'Firefox', 'Yahoo', 'C', 'Easy', 'Computer Science', '2025-06-25 17:25:27'),
-(9, 'Which key is used to delete text to the left of the cursor?', 'Shift', 'Ctrl', 'Backspace', 'Enter', 'C', 'Easy', 'Computer Science', '2025-06-25 17:25:27'),
-(10, 'What does RAM stand for?', 'Read Access Memory', 'Read Automatic Memory', 'Random Automatic Memory', 'Random Access Memory', 'D', 'Easy', 'Computer Science', '2025-06-25 17:25:27'),
-(11, 'Which gas is most abundant in the Earth\'s atmosphere?', 'Oxygen', 'Carbon Dioxide', 'Nitrogen', 'Hydrogen', 'C', 'Medium', 'General Knowledge', '2025-06-25 17:25:27'),
-(12, 'Who is known as the Iron Man of India?', 'Subhash Chandra Bose', 'Bhagat Singh', 'Sardar Vallabhbhai Patel', 'Jawaharlal Nehru', 'C', 'Medium', 'General Knowledge', '2025-06-25 17:25:27'),
-(13, 'Which is the only country that is also a continent and has three internal time zones?', 'Japan', 'Australia', 'Europe', 'North America', 'B', 'Medium', 'General Knowledge', '2025-06-25 17:25:27'),
-(14, 'Who wrote \'Discovery of India\'?', 'Mahatma Gandhi', 'Rabindranath Tagore', 'Jawaharlal Nehru', 'APJ Abdul Kalam', 'C', 'Medium', 'General Knowledge', '2025-06-25 17:25:27'),
-(15, 'Which river is known as the \'Sorrow of Bengal\'?', 'Ganga', 'Yamuna', 'Damodar', 'Brahmaputra', 'C', 'Medium', 'General Knowledge', '2025-06-25 17:25:27'),
-(16, 'Which protocol is used to receive emails?', 'SMTP', 'IMAP', 'FTP', 'HTTP', 'B', 'Medium', 'Computer Science', '2025-06-25 17:25:27'),
-(17, 'Which file extension is used for Java source code?', '.exe', '.java', '.class', '.html', 'B', 'Medium', 'Computer Science', '2025-06-25 17:25:27'),
-(18, 'What is the full form of HTTP?', 'Hyper Text Terminal Protocol', 'Hyper Text Transmission Protocol', 'Hyper Text Transfer Protocol', 'High Text Transfer Protocol', 'C', 'Medium', 'Computer Science', '2025-06-25 17:25:27'),
-(19, 'Which shortcut is used to redo an action?', 'Ctrl + R', 'Ctrl + Y', 'Ctrl + U', 'Ctrl + E', 'B', 'Medium', 'Computer Science', '2025-06-25 17:25:27'),
-(20, 'Which one is an open-source operating system?', 'Windows', 'macOS', 'Linux', 'DOS', 'C', 'Medium', 'Computer Science', '2025-06-25 17:25:27'),
-(21, 'Which is the deepest ocean in the world?', 'Atlantic', 'Arctic', 'Indian', 'Pacific', 'D', 'Hard', 'General Knowledge', '2025-06-25 17:25:27'),
-(22, 'Who is known as the \'Napoleon of India\'?', 'Ashoka', 'Chandragupta Maurya', 'Harsha', 'Samudragupta', 'D', 'Hard', 'General Knowledge', '2025-06-25 17:25:27'),
-(23, 'Which Indian scientist won the Nobel Prize for Physics in 1930?', 'Homi Bhabha', 'Satyendra Nath Bose', 'C.V. Raman', 'Meghnad Saha', 'C', 'Hard', 'General Knowledge', '2025-06-25 17:25:27'),
-(24, 'Which city is known as the \'City of Joy\'?', 'Kolkata', 'Delhi', 'Mumbai', 'Chennai', 'A', 'Hard', 'General Knowledge', '2025-06-25 17:25:27'),
-(25, 'Which Indian state has the longest coastline?', 'Gujarat', 'Andhra Pradesh', 'Maharashtra', 'Tamil Nadu', 'A', 'Hard', 'General Knowledge', '2025-06-25 17:25:27'),
-(26, 'Which of these is NOT a type of computer network?', 'LAN', 'MAN', 'WAN', 'CAN', 'D', 'Hard', 'Computer Science', '2025-06-25 17:25:27'),
-(27, 'Which one is used for dynamic web page scripting?', 'HTML', 'CSS', 'JavaScript', 'XML', 'C', 'Hard', 'Computer Science', '2025-06-25 17:25:27'),
-(28, 'What is the main difference between RAM and ROM?', 'ROM is volatile,RAM is not', 'RAM stores the BIOS', 'RAM is volatile, ROM is not', 'Both are permanent storage', 'C', 'Hard', 'Computer Science', '2025-06-25 17:25:27'),
-(29, 'Which method is used to arrange numbers in order?', 'Searching', 'Sorting', 'Filtering', 'Merging', 'B', 'Hard', 'Computer Science', '2025-06-25 17:25:27'),
-(30, 'Which type of malware appears as a useful software but harms your system?', 'Virus', 'Worm', 'Trojan Horse', 'Spyware', 'C', 'Hard', 'Computer Science', '2025-06-25 17:25:27');
+(1, 'What does BCA stand for?', 'Bachelor of Commerce in Accounting', 'Bachelor of Computer Applications', 'Basic Computer Architecture', 'Business and Computing Administration', 'B', 'Easy', 'College Awareness', '2025-06-30 06:32:40'),
+(2, 'What is the minimum duration of a BCA course?', '2 years', '4 years', '3 years', '5 years', 'C', 'Easy', 'College Awareness', '2025-06-30 06:32:40'),
+(3, 'Which of the following is a subject generally taught in the first semester of BCA?', 'Operating System Internals', 'Data Structures', 'Digital Marketing', 'Accountancy', 'B', 'Easy', 'College Awareness', '2025-06-30 06:32:40'),
+(4, 'Who is responsible for maintaining discipline in your college?', 'Librarian', 'Principal', 'Discipline Committee/ANO', 'Peon', 'C', 'Easy', 'College Awareness', '2025-06-30 06:32:40'),
+(5, 'Full form of your college name (C.Z.M.G BCA and MSC.IT)?', 'Smt. Chandrikaben Zaverchand Meghji Goswami', 'Smt. Chandramaniben Zaveri Meghji Gosrani', 'Smt. Chandramaniben Zaverchand Meghji Gosrani', 'Smt. Chandramaniben Zaverchand Meghji Goswami', 'C', 'Medium', 'College Awareness', '2025-06-30 06:32:40'),
+(6, 'Which of the following is an input device?', 'Monitor', 'Keyboard', 'Printer', 'Speaker', 'B', 'Easy', 'Computer Basics', '2025-06-30 06:32:40'),
+(7, 'Which is the brain of the computer?', 'RAM', 'Hard Disk', 'CPU', 'Keyboard', 'C', 'Easy', 'Computer Basics', '2025-06-30 06:32:40'),
+(8, 'Which of these is NOT an operating system?', 'Linux', 'Windows', 'Oracle', 'macOS', 'C', 'Easy', 'Computer Basics', '2025-06-30 06:32:40'),
+(9, 'Which programming language is known as the “mother of all languages”?', 'Java', 'Python', 'C', 'HTML', 'C', 'Medium', 'Computer Basics', '2025-06-30 06:32:40'),
+(10, 'The full form of HTML is:', 'HighText Machine Language', 'HyperText Markup Language', 'HyperTool Multi Language', 'None of the above', 'B', 'Easy', 'Computer Basics', '2025-06-30 06:32:40'),
+(11, 'What does RAM stand for?', 'Read Access Memory', 'Random Access Memory', 'Random Automatic Memory', 'Read Automatic Memory', 'B', 'Easy', 'Computer Basics', '2025-06-30 06:32:40'),
+(12, 'Which key deletes text to the left of the cursor?', 'Shift', 'Ctrl', 'Backspace', 'Enter', 'C', 'Easy', 'Computer Basics', '2025-06-30 06:32:40'),
+(13, 'Which device helps you hear sound from the computer?', 'Monitor', 'CPU', 'Speaker', 'Scanner', 'C', 'Easy', 'Computer Basics', '2025-06-30 06:32:40'),
+(14, 'Full form of HTTP:', 'Hyper Text Terminal Protocol', 'Hyper Text Transmission Protocol', 'Hyper Text Transfer Protocol', 'High Text Transfer Protocol', 'C', 'Easy', 'Internet Awareness', '2025-06-30 06:32:40'),
+(15, 'What is the full form of URL?', 'Uniform Resource Locator', 'User Record Link', 'Universal Request Log', 'Uniform Register Location', 'A', 'Easy', 'Internet Awareness', '2025-06-30 06:32:40'),
+(16, 'Which of the following is a web browser?', 'Google', 'Yahoo', 'Chrome', 'Bing', 'C', 'Easy', 'Internet Awareness', '2025-06-30 06:32:40'),
+(17, 'Which one is an example of cloud storage?', 'Pendrive', 'Google Drive', 'CD-ROM', 'SSD', 'B', 'Easy', 'Internet Awareness', '2025-06-30 06:32:40'),
+(18, 'Phishing refers to:', 'Catching viruses', 'Email-based fraud', 'File download issues', 'Internet buffering', 'B', 'Medium', 'Internet Awareness', '2025-06-30 06:32:40'),
+(19, 'Which protocol is used to receive emails?', 'SMTP', 'IMAP', 'FTP', 'HTTP', 'B', 'Medium', 'Internet Awareness', '2025-06-30 06:32:40'),
+(20, 'Which of these is an example of good digital etiquette?', 'SHOUTING IN CAPS', 'Being respectful online', 'Ignoring emails', 'Sending fake forwards', 'B', 'Easy', 'Digital Etiquette', '2025-06-30 06:32:40'),
+(21, 'Which is a formal communication tool?', 'WhatsApp', 'TikTok', 'Gmail', 'Snapchat', 'C', 'Easy', 'Digital Etiquette', '2025-06-30 06:32:40'),
+(22, 'What should you check before sending a formal email?', 'Subject Line', 'Grammar', 'Attachments', 'All of the above', 'D', 'Easy', 'Digital Etiquette', '2025-06-30 06:32:40'),
+(23, 'Important skill during group discussion?', 'Loud talking', 'Interrupting', 'Listening and responding', 'Staying silent', 'C', 'Easy', 'Digital Etiquette', '2025-06-30 06:32:40'),
+(24, 'Netiquette means:', 'Network etiquette', 'Internet behavior manners', 'Net speed', 'None', 'B', 'Easy', 'Digital Etiquette', '2025-06-30 06:32:40'),
+(25, 'What improves your resume during college?', 'Internships', 'Competitions', 'Hackathons', 'All of the above', 'D', 'Medium', 'Career & Motivation', '2025-06-30 06:32:40'),
+(26, 'Best way to manage studies?', 'Group discussions', 'Studying only at exam time', 'Regular revision & attendance', 'Skipping lectures', 'C', 'Easy', 'Career & Motivation', '2025-06-30 06:32:40'),
+(27, 'Enhance your BCA career by:', 'Coding practice', 'Doing projects', 'Joining tech clubs', 'All of the above', 'D', 'Medium', 'Career & Motivation', '2025-06-30 06:32:40'),
+(28, 'Which one is a soft skill?', 'Java', 'C++', 'Communication', 'Python', 'C', 'Easy', 'Career & Motivation', '2025-06-30 06:32:40'),
+(29, 'Best way to start college positively?', 'Be active & punctual', 'Skip activities', 'Avoid interaction', 'Copy notes only', 'A', 'Easy', 'Career & Motivation', '2025-06-30 06:32:40'),
+(30, 'Which country is known as the Land of the Rising Sun?', 'South Korea', 'China', 'Japan', 'Thailand', 'C', 'Easy', 'Fun GK', '2025-06-30 06:32:40');
 
 -- --------------------------------------------------------
 
@@ -100,7 +100,7 @@ CREATE TABLE `quiz_progress` (
 INSERT INTO `quiz_progress` (`id`, `user_id`, `current_question_index`, `score`, `answers`, `started_at`, `updated_at`, `question_order`) VALUES
 (265, 8, 21, 1, '[\"B\",\"A\",\"B\",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]', '2025-06-26 09:37:25', '2025-06-26 09:37:25', NULL),
 (282, 10, 5, 1, '[\"B\",null,null,null,\"B\",null]', '2025-06-26 13:23:35', '2025-06-26 13:23:35', NULL),
-(284, 12, 16, 6, '[\"C\",\"D\",\"A\",\"C\",\"C\",\"D\",\"C\",\"C\",\"C\",\"D\",\"D\",\"D\",\"C\",\"C\",\"C\",\"C\",null,null,null,null,null,null,null,null,null,null,null,null,null,null]', '2025-06-26 13:38:29', '2025-06-26 13:39:12', NULL);
+(286, 16, 0, 0, '[]', '2025-06-28 06:13:48', '2025-06-28 06:13:48', '[6,20,19,21,23,10,4,22,25,16,8,1,9,14,11,7,3,30,5,26,27,24,28,29,2,13,18,12,15,17]');
 
 -- --------------------------------------------------------
 
@@ -128,7 +128,8 @@ INSERT INTO `quiz_results` (`id`, `user_id`, `score`, `total_questions`, `percen
 (7, 6, 8, 30, 26.67, 66, '2025-06-26 08:36:46'),
 (8, 7, 24, 30, 80.00, 225, '2025-06-26 09:12:02'),
 (9, 11, 10, 30, 33.33, 129, '2025-06-26 13:33:09'),
-(10, 15, 17, 30, 56.67, 536, '2025-06-26 13:58:15');
+(10, 15, 17, 30, 56.67, 536, '2025-06-26 13:58:15'),
+(11, 12, 12, 30, 40.00, 32, '2025-06-26 14:03:29');
 
 -- --------------------------------------------------------
 
@@ -161,7 +162,8 @@ INSERT INTO `users` (`id`, `name`, `mobile`, `created_at`, `school`, `stream`) V
 (12, 'harsh raithatha', '9327449233', '2025-06-26 13:37:11', 'kvd', 'comm'),
 (13, 'commando', '9996665875', '2025-06-26 13:45:07', 'asd', 'asd'),
 (14, 'Status page', '9996633221', '2025-06-26 13:46:14', 'asd', 'asd'),
-(15, 'Devx Harsh', '9365478217', '2025-06-26 13:48:55', 'jh', 'kj');
+(15, 'Devx Harsh', '9365478217', '2025-06-26 13:48:55', 'jh', 'kj'),
+(16, 'Devx Harsh', '7451263980', '2025-06-28 06:13:45', 'dcfljh', 'qxdcgh');
 
 --
 -- Indexes for dumped tables
@@ -208,19 +210,19 @@ ALTER TABLE `questions`
 -- AUTO_INCREMENT for table `quiz_progress`
 --
 ALTER TABLE `quiz_progress`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=286;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=287;
 
 --
 -- AUTO_INCREMENT for table `quiz_results`
 --
 ALTER TABLE `quiz_results`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Constraints for dumped tables
